@@ -1,3 +1,13 @@
+# ruMT-Bench
+
+This repo provides Russian MT-Bench questions and prompts to evaluate your models with LLM-as-a-judge.
+
+For more details, see the following:
+
+- [fastchat/llm_judge/data/ru_mt_bench](https://github.com/NLP-Core-Team/FastChat/tree/main/fastchat/llm_judge/data/ru_mt_bench), which contains ruMT-Bench.
+- [fastchat/llm_judge/README.md](https://github.com/NLP-Core-Team/FastChat/blob/main/fastchat/llm_judge/README.md) for how to generate model answers and judgements.
+
+
 # FastChat
 | [**Demo**](https://chat.lmsys.org/) | [**Discord**](https://discord.gg/HSWAKCrnFx) | [**X**](https://x.com/lmsysorg) |
 
