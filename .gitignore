@@ -1,0 +1,35 @@
+# Python
+__pycache__
+*.pyc
+*.egg-info
+dist
+.venv
+fastchat/llm_judge/data/mt_bench/.ipynb_checkpoints/
+fastchat/llm_judge/data/ru_mt_bench/reference_answer/.ipynb_checkpoints/
+fastchat/llm_judge/data/ru_mt_bench/.ipynb_checkpoints/
+.ipynb_checkpoints/
+
+# Log
+*.log
+*.log.*
+*.json
+!playground/deepspeed_config_s2.json
+!playground/deepspeed_config_s3.json
+
+# Editor
+.idea
+*.swp
+
+# Other
+.DS_Store
+wandb
+output
+checkpoints_flant5_3b
+
+# Data
+*.pkl
+*.csv
+tests/state_of_the_union.txt
+
+# Build
+build
