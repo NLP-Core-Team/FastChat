@@ -4,7 +4,7 @@ You can use ruMT-bench in Russian language prompts to evaluate your models with 
 
 ## Dataset
 
-- [ruMT-Bench Dataset](https://huggingface.co/spaces/NLPCoreTeam/ruMT-Bench)
+- [ruMT-Bench Dataset](https://huggingface.co/datasets/NLPCoreTeam/ruMT-Bench)
 
 The dataset contains instructive multi-turn open-ended questions for evaluating chat assistants, divided into 8 topics: writing, roleplay, extraction, reasoning, math, coding, knowledge I (STEM), and knowledge II (humanities/social science). The English version of MT-bench has been translated into Russian.
 
@@ -13,7 +13,7 @@ The dataset contains instructive multi-turn open-ended questions for evaluating 
 To install release, run
 
 ```
-git clone https://gitlab.ai.cloud.ru/rnd-core-team/nlp/FastChat.git
+git clone https://github.com/NLP-Core-Team/FastChat.git
 cd FastChat
 pip install -e ".[model_worker,llm_judge]"
 ```
@@ -49,12 +49,12 @@ For each turn, GPT-4 will give a score on a scale of 10. We then compute the ave
 
 ```
 export OPENAI_API_KEY=XXXXXX  # set the OpenAI API key
-python gen_judgment.py --model-list [LIST-OF-MODEL-ID] --parallel [num-concurrent-api-call]
+python gen_judgment.py --model-list [LIST-OF-MODEL-ID] --parallel [num-concurrent-api-call] --bench-name [BENCH-NAME]
 ```
 
 e.g.,
 ```
-python gen_judgment.py --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4 --parallel 20
+python gen_judgment.py --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4 --parallel 20 --bench-name ru_mt_bench
 ```
 The judgments will be saved to `data/ru_mt_bench/model_judgment/gpt-4_single.jsonl`
 
@@ -62,11 +62,11 @@ The judgments will be saved to `data/ru_mt_bench/model_judgment/gpt-4_single.jso
 
 - Show the scores for selected models
   ```
-  python show_result.py --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4
+  python show_result.py --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4 --bench-name ru_mt_bench
   ```
 - Show all scores
   ```
-  python show_result.py
+  python show_result.py --bench-name ru_mt_bench
   ```
 
 ---
@@ -80,13 +80,13 @@ Besides score-based single-answer grading, we also support two additional gradin
 
 - Generate GPT-4 judgments
 ```
-python gen_judgment.py --mode pairwise-baseline --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4 --parallel 20
+python gen_judgment.py --mode pairwise-baseline --model-list Mixtral-8x7B-v0.1 gemini-pro gpt-3.5-turbo gpt-4 --parallel 20 --bench-name ru_mt_bench
 ```
 The judgments will be saved to `data/ru_mt_bench/model_judgment/gpt-4_pair.jsonl`
 
 - Show results
 ```
-python show_result.py --mode pairwise-baseline
+python show_result.py --mode pairwise-baseline --bench-name ru_mt_bench
 ```
 
 #### Option 3: Run GPT-4 judge with all pair comparisons
@@ -95,11 +95,11 @@ Another option is to run pairwise comparisons on all possible pairs.
 This could be more expensive when #models increases, but it gives you a more comprehensive information.
 
 ```
-python gen_judgment.py --mode pairwise-all --model-list [LIST-OF-MODEL-ID] --parallel [num-concurrent-api-call]
+python gen_judgment.py --mode pairwise-all --model-list [LIST-OF-MODEL-ID] --parallel [num-concurrent-api-call] --bench-name [BENCH-NAME]
 ```
 
 ```
-python show_result.py --mode pairwise-all
+python show_result.py --mode pairwise-all --bench-name ru_mt_bench
 ```
 
 ### How to get GPT-4/GPT-3.5/Gemini/Gigachat's answer?
