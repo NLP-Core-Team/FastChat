@@ -555,8 +555,8 @@ def chat_completion_gemini(model, conv, temperature, max_tokens):
             'maxOutputTokens': max_tokens
         },
     }
-    if temperature != -1:
-        json_data['generationConfig']['temperature'] = temperature
+
+    json_data['generationConfig']['temperature'] = temperature
     
     output = API_ERROR_OUTPUT
     for _ in range(API_MAX_RETRY):

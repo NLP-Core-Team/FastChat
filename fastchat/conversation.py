@@ -313,6 +313,18 @@ class Conversation:
                 if msg is not None:
                     ret.append({"role": "assistant", "content": msg})
         return ret
+    
+    def to_gemini_api_messages(self):
+        """Convert the conversation to gemini chat completion format."""
+        ret = []
+
+        for i, (_, msg) in enumerate(self.messages[self.offset :]):
+            if i % 2 == 0:
+                ret.append({"role": "user", "parts": [{"text": msg}]})
+            else:
+                if msg is not None:
+                    ret.append({"role": "model", "parts": [{"text": msg}]})
+        return ret
 
     def copy(self):
         return Conversation(
