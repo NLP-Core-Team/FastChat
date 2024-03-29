@@ -20,9 +20,10 @@ from fastchat.llm_judge.common import (
     chat_completion_anthropic,
     chat_completion_palm,
     chat_completion_gemini,
+    chat_completion_gigachat,
 )
 from fastchat.llm_judge.gen_model_answer import reorg_answer_file
-from fastchat.model.model_adapter import get_conversation_template, ANTHROPIC_MODEL_LIST
+from fastchat.model.model_adapter import get_conversation_template, ANTHROPIC_MODEL_LIST, GIGACHAT_MODEL_LIST
 
 
 def get_answer(
@@ -58,6 +59,10 @@ def get_answer(
                 )
             elif model == "gemini-pro":
                 output = chat_completion_gemini(
+                    model, conv, temperature, max_tokens
+                )
+            elif model in GIGACHAT_MODEL_LIST:
+                output = chat_completion_gigachat(
                     model, conv, temperature, max_tokens
                 )
             else:

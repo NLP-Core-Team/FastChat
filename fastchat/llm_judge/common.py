@@ -572,6 +572,35 @@ def chat_completion_gemini(model, conv, temperature, max_tokens):
     return output
 
 
+def chat_completion_gigachat(model, conv, temperature, max_tokens):
+    url = 'https://gigachat.devices.sberbank.ru/api/v1/chat/completions'
+    api_token=os.environ["GIGACHAT_API_KEY"]
+ 
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + api_token,
+    }
+
+    json_data = {
+        'model': model,
+        'max_tokens': max_tokens,
+        'messages': []
+    }
+    
+    output = API_ERROR_OUTPUT
+    for _ in range(API_MAX_RETRY):
+        try:
+            json_data['messages'] = conv.to_gigachat_api_messages()
+            response = requests.post(url, headers=headers, json=json_data, verify=False)
+            data = response.json()
+            output = data['choices'][0]['message']['content']
+            break
+        except Exception as e:
+            print(type(e), e)
+            time.sleep(API_RETRY_SLEEP)
+    return output
+
+
 def normalize_game_key_single(gamekey, result):
     """Make the model names sorted in a game key."""
     qid, model_1, model_2 = gamekey

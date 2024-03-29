@@ -18,6 +18,14 @@ cd FastChat
 pip install -e ".[model_worker,llm_judge]"
 ```
 
+## Review Pre-Generated Model Answers and Judgments
+We provide pre-generated model answers and judgments for some models.
+
+To download the pre-generated data, use
+```
+python download_mt_bench_pregenerated.py
+```
+
 ## ruMT-Bench
 
 ### Evaluate a model on ruMT-bench
@@ -34,6 +42,7 @@ Arguments:
 e.g.,
 ```
 python gen_model_answer.py --model-path mistralai/Mixtral-8x7B-v0.1 --model-id Mixtral-8x7B-v0.1 --bench-name ru_mt_bench
+python gen_model_answer.py --model-path IlyaGusev/saiga_mistral_7b --model-id saiga_mistral_7b --bench-name ru_mt_bench
 ```
 The answers will be saved to `data/ru_mt_bench/model_answer/[MODEL-ID].jsonl`.
 
@@ -107,12 +116,18 @@ python show_result.py --mode pairwise-all --bench-name ru_mt_bench
 Generate GPT-3.5/4 answers.
 ```
 export OPENAI_API_KEY=XXXXXX  # set the OpenAI API key
-python gen_api_answer.py --model gpt-4
+python gen_api_answer.py --model gpt-4 --bench-name ru_mt_bench
 ```
 Generate Gemini answers.
 ```
 export GEMINI_API_KEY=XXXXXX  # set the Gemini API key
-python gen_api_answer.py --model gemini-pro
+python gen_api_answer.py --model gemini-pro --bench-name ru_mt_bench
+```
+Generate GigaChat answers.
+```
+export GIGACHAT_API_KEY=XXXXXX  # set the GigaChat API key
+python gen_api_answer.py --model GigaChat-Pro --bench-name ru_mt_bench
+python gen_api_answer.py --model GigaChat:latest --bench-name ru_mt_bench
 ```
 
 ### How to plot the radar figure?

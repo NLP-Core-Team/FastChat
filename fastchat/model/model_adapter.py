@@ -69,6 +69,10 @@ OPENAI_MODEL_LIST = (
     "gpt-4-turbo",
 )
 
+GIGACHAT_MODEL_LIST = (
+    "GigaChat-Pro",
+    "GigaChat:latest",
+)
 
 class BaseModelAdapter:
     """The base and the default model adapter."""
@@ -1480,7 +1484,7 @@ class StarChatAdapter(BaseModelAdapter):
 
 
 class SaigaAdapter(BaseModelAdapter):
-    """The model adapter for Mistral AI models"""
+    """The model adapter for saiga AI models"""
 
     def match(self, model_path: str):
         return "saiga" in model_path.lower()
@@ -1499,7 +1503,7 @@ class MistralAdapter(BaseModelAdapter):
     """The model adapter for Mistral AI models"""
 
     def match(self, model_path: str):
-        return "mistral" in model_path.lower() or "mixtral" in model_path.lower()
+        return "mistral" in model_path.lower()
 
     def load_model(self, model_path: str, from_pretrained_kwargs: dict):
         model, tokenizer = super().load_model(model_path, from_pretrained_kwargs)
@@ -2264,6 +2268,16 @@ class YuanAdapter(BaseModelAdapter):
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("yuan")
 
+    
+class GemmaAdapter(BaseModelAdapter):
+    """The model adapter for Gemma"""
+
+    def match(self, model_path: str):
+        return "gemma" in model_path.lower()
+
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("gemma")
+    
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
@@ -2355,6 +2369,7 @@ register_model_adapter(BagelAdapter)
 register_model_adapter(SolarAdapter)
 register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
+register_model_adapter(GemmaAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)
